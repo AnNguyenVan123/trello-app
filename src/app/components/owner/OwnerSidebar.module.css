@@ -1,0 +1,17 @@
+.sidebar_container {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 200px;
+    background-color: rgba(0, 0, 255, 0.6);
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    align-items: center;
+}
+
+.child
+{    
+     width: 100%;
+     text-align: center;
+}

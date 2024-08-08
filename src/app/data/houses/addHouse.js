@@ -1,7 +1,7 @@
 import axios from "axios"
 import { houseSchema } from "../types/schemas"
 
-export default async function addHouses(new_house) {
+export default async function delteHouses(new_house) {
     let url = `http://localhost:8080/houses`
     const house = houseSchema.safeParse(new_house)
     console.log(1)

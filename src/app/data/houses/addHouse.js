@@ -4,7 +4,7 @@ import { houseSchema } from "../types/schemas"
 export default async function addHouses(new_house) {
     let url = `http://localhost:8080/houses`
     const house = houseSchema.safeParse(new_house)
-    console.log(1)
+    console.log(3)
     if (!house.success) {
         const issues = house.error.issues
         console.log(issues)

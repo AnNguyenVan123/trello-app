@@ -2,12 +2,13 @@
 import axios from 'axios';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
+import getUserAuthenticated from '../data/users/getUserAuthenticated';
 const Signup =
     async (form_data) => {
          
-        const account = form_data.get('account')
-        const password = form_data.get('password')
-        const name = form_data.get('name')
+        const account = form_data.account
+        const password = form_data.password
+        const name = form_data.name
         console.log(account)
         if(account.length<8){
             return
@@ -37,10 +38,13 @@ const Signup =
             isSuccess = true
         } catch (error) {
             console.log(error.message)
-
         }
         if (isSuccess) {
-            redirect("/")
+            return await getUserAuthenticated()
+            
+        }
+        else {
+            return null
         }
     }
 export default Signup

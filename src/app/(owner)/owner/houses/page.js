@@ -3,10 +3,10 @@ import AddHouseModal from '@/app/components/houses/AddHouseModal'
 import styles from './page.module.css'
 import HouseOwner from "@/app/components/houses/HouseOwner"
 import getHousesByOwner from "@/app/data/houses/getHousesByOwner"
-import { UserContext } from "@/app/provider/Provider"
 import clsx from "clsx"
 import { useContext, useEffect, useState } from "react"
 import DeleteHouseModal from '@/app/components/houses/DeleteHouseModal'
+import { UserContext } from '@/app/userProvider/UserProvider'
 const Page = () => {
     const [listHouses, SetListHouses] = useState([])
     const [modal_state, SetModalState] = useState({

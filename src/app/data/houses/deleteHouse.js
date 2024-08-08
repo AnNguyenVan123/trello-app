@@ -6,6 +6,7 @@ export default async function deleteHouses(house_id) {
     try {
         const { status } = await ((await axios.delete(url)))
         console.log(status)
+        console.log(2)
         if (status == 204) {
             return 1
         }

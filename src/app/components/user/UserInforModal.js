@@ -2,7 +2,7 @@
 import clsx from 'clsx'
 import styles from './UserInforModal.module.css'
 import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '@/app/provider/Provider'
+import { UserContext } from '@/app/userProvider/UserProvider'
 import Overlay from '../houses/Overlay'
 import EditUser from '@/app/actions/editUser'
 import { userSchema } from '@/app/data/types/schemas'

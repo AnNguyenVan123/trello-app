@@ -1,10 +1,12 @@
 
 'use client'
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Login from '../actions/Login';
 import Signup from '../actions/Signup';
 import Link from 'next/link';
+import { UserContext } from '../userProvider/UserProvider';
+import { useRouter } from 'next/navigation';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,68 +55,79 @@ const Button = styled.button`
   }
 `;
 const SignupForm = () => {
-    const [account, setAccount] = useState('');
-    const [password, setPassword] = useState('');
-    const [confirm_password, setConfirmPassword] = useState('')
-    const [error, setError] = useState({ account_error: '', password_error: '', confirm_password_error: '' })
-    const validateForm = () => {
-        setError(error => { return { account_error: '', password_error: '', confirm_password_error: '' } })
-        if (account.length < 8) {
-            setError(error => { return { ...error, account_error: 'Account length must longer than 8 charater !' } })
-
-        }
-        if (password != confirm_password) {
-            setError(error => { return { ...error, confirm_password_error: 'Passwords are not similar !' } })
-
-        }
-        if (password.length < 8) {
-            setError(error => { return { ...error, password_error: 'Password length must longer than 8 charater !' } })
-
-        }
+  const { SetUser } = useContext(UserContext)
+  const router = useRouter()
+  const [form_data, SetFormData] = useState({ account: '', password: '', confirm_password: '', name: '' })
+  const [error, setError] = useState({ account_error: '', password_error: '', confirm_password_error: '' })
+  const validateForm = () => {
+    setError(error => { return { account_error: '', password_error: '', confirm_password_error: '' } })
+    if (form_data.account.length < 8) {
+      setError(error => { return { ...error, account_error: 'Account length must longer than 8 charater !' } })
 
     }
-    return (
-        <Container>
-            <Form action={Signup}>
-                <Title>Sign up</Title>
-                <Input
-                    type="text"
-                    placeholder="Account"
-                    name='account'
-                    value={account}
-                    onChange={(e) => setAccount(e.target.value)}
-                    required
-                />
-                {error.account_error}<br />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                {error.password_error}<br />
-                <Input
-                    type="password"
-                    placeholder="Confirm Password"
-                    value={confirm_password}
-                    onChange={(e) => setConfirmPassword(e.target.value)}
-                    required
-                />
-                {error.confirm_password_error}<br />
-                <Input
-                    type="text"
-                    placeholder="Name"
-                    name='name'
-                    required
-                />
-              
-                <Button type="submit" onClick={() => { validateForm() }}>Sign up</Button>
-                <Link href={"/login"} style={{'textDecoration':'underline','margin-top':'8px'}} >Login</Link>
-            </Form>
-           
-        </Container>
-    );
+    if (form_data.password != form_data.confirm_password) {
+      setError(error => { return { ...error, confirm_password_error: 'Passwords are not similar !' } })
+
+    }
+    if (form_data.password.length < 8) {
+      setError(error => { return { ...error, password_error: 'Password length must longer than 8 charater !' } })
+
+    }
+
+  }
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const user = await Signup(form_data)
+    if (user) {
+
+      SetUser(user)
+      router.push('/')
+    }
+
+  }
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit} action='post'>
+        <Title>Sign up</Title>
+        <Input
+          type="text"
+          placeholder="Account"
+          name='account'
+          value={form_data.account}
+          onChange={(e) => SetFormData(form_data => { return { ...form_data, account: e.target.value } })}
+          required
+        />
+        {error.account_error}<br />
+        <Input
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={form_data.password}
+          onChange={(e) => SetFormData(form_data => { return { ...form_data, password: e.target.value } })}
+          required
+        />
+        {error.password_error}<br />
+        <Input
+          type="password"
+          placeholder="Confirm Password"
+          value={form_data.confirm_password}
+          onChange={(e) => SetFormData(form_data => { return { ...form_data, confirm_password: e.target.value } })}
+          required
+        />
+        {error.confirm_password_error}<br />
+        <Input
+          type="text"
+          placeholder="Name"
+          value={form_data.name}
+          onChange={(e) => SetFormData(form_data => { return { ...form_data, name: e.target.value } })}
+          required
+        />
+
+        <Button type="submit" onClick={() => { validateForm() }}>Sign up</Button>
+        <Link href={"/login"} style={{ 'textDecoration': 'underline', 'margin-top': '8px' }} >Login</Link>
+      </Form>
+
+    </Container>
+  );
 };
 export default SignupForm;

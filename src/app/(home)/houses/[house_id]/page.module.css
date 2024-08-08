@@ -1,19 +1,20 @@
 .big_img_container {
 
     width: 65%;
-    aspect-ratio: 1.5
+    aspect-ratio: 1.5;
 }
 
 .img_container {
     width: 100%;
     aspect-ratio: 1.5;
-
+    
 }
 
 .slide {
     width: 30%;
     overflow-y: auto;
     height: 100%;
+    grid-auto-rows: max-content;
 }
 
 .padding {

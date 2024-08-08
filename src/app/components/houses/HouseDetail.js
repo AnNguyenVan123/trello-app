@@ -1,9 +1,9 @@
 'use client'
 import { useContext, useEffect, useState } from 'react'
 import styles from './HouseDetail.module.css'
-import { UserContext } from '@/app/provider/Provider'
 import Order from '@/app/data/order/order'
 import clsx from 'clsx'
+import { UserContext } from '@/app/userProvider/UserProvider'
 export default function HouseDetail({ house, SetIsChange }) {
     const { user } = useContext(UserContext)
     const [Ordered, setOrdered] = useState(null)

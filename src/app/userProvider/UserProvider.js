@@ -1,13 +1,13 @@
 'use client'
-
-import { useEffect, useState } from "react"
-import { Provider } from "../provider/Provider"
+import { createContext, useEffect, useState } from "react"
+const UserContext = createContext();
 const UserProvider = ({ children, user_init }) => {
+    console.log(user_init)
     const [user, SetUser] = useState(user_init)
-
+     
     return (
-        <Provider user={user} setUser={SetUser}>
+        <UserContext.Provider value={{user,SetUser}}>
             {children}
-        </Provider>)
+        </UserContext.Provider>)
 }
-export default UserProvider
+export {UserProvider,UserContext}

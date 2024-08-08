@@ -2,10 +2,11 @@
 import clsx from 'clsx'
 import styles from './AddHouseModal.module.css'
 import { useContext, useEffect, useState } from 'react'
-import { UserContext } from '@/app/provider/Provider'
+
 import addHouses from '@/app/data/houses/addHouse'
 import addImage from '@/app/data/images/addImage'
 import Overlay from './Overlay'
+import { UserContext } from '@/app/userProvider/UserProvider'
 const AddHouseModal = ({ changeState, style, state }) => {
     const { user } = useContext(UserContext)
     const [errors, SetError] = useState({

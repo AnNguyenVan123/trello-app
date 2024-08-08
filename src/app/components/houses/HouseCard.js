@@ -11,11 +11,12 @@ const HouseCard = ({ house }) => {
             </div>
             <div className="font-semibold" >{house.title}  </div>
             <div className="text-slate-400">Hosted by {house.owner.name}  </div>
+            <div>Address : {house.address}</div>
             <div className='flex'>
                 <div className='font-semibold'>
                 {house.price}$
                 </div>
-                <div className='ml-2 text-slate-600'> per day</div>
+                <div className='ml-2 text-slate-600'> per night</div>
             </div>
         </Link>)
 }

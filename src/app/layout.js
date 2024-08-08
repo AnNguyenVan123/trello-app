@@ -2,8 +2,7 @@
 
 import getUserAuthenticated from "./data/users/getUserAuthenticated";
 import "./globals.css";
-import { Provider } from "./provider/Provider";
-import UserProvider from "./userProvider/UserProvider";
+import {UserProvider} from "./userProvider/UserProvider";
 export const metadata = {
   title: "Create Next App",
 };

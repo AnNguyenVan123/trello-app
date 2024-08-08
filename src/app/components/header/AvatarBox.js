@@ -3,15 +3,16 @@ import Logout from '@/app/actions/Logout'
 import styles from './AvatarBox.module.css'
 import { useContext, useState } from 'react'
 import Link from 'next/link'
-import { UserContext } from '@/app/provider/Provider'
 import ChangePasswordModal from '../change_password/changePasswordModel'
 import UserInforModal from '../user/UserInforModal'
+import { UserContext } from '@/app/userProvider/UserProvider'
 const AvatarBox = () => {
   const [isDisplayed, setIsDisplay] = useState(false)
   const handleDisplay = () => { setIsDisplay(!isDisplayed) }
   const [isChangePasswordModalShowed, setChangePasswordModalState] = useState(false)
   const [isUserInforModalShowed, setUserInforModalState] = useState(false)
-  let { user } = useContext(UserContext)
+  console.log(useContext(UserContext))
+  let {user,SetUser} = useContext(UserContext)
   if (user) {
     const { name } = user
   }
@@ -39,7 +40,7 @@ const AvatarBox = () => {
           {user.name}
         </div>
         <div className={styles.child + ' w-full h-14 text-center'}>
-          <div onClick={() => { changePasswordModel()}}>   Change Password</div>
+          <div onClick={() => { changePasswordModel() }}>   Change Password</div>
 
           <ChangePasswordModal changeState={changePasswordModel} style={{ display: isChangePasswordModalShowed ? 'block' : 'none' }} />
         </div>
@@ -52,18 +53,23 @@ const AvatarBox = () => {
           Owner Page
         </Link>
 
-        <Link href={"/orders"} className={styles.child + ' w-full h-14 text-center'}>
+        <Link href={"/orders?type=all"} className={styles.child + ' w-full h-14 text-center'}>
           My Orders
         </Link>
-        <Link href={"/login"} className={styles.child + ' w-full h-14 text-center'} onClick={() => { Logout() }}>
+        <button  className={styles.child + ' w-full h-14 text-center'} onClick={() => { 
+          SetUser(null)
+          Logout()
+          
+          
+          }}>
           Logout
-        </Link>
+        </button>
       </div> : null}
       {!user ? <div id="user_ultil" className={styles.user_ultil_container} style={{ display: `${isDisplayed ? 'flex' : 'none'}` }}>
         <Link href={"/login"} className={styles.child + ' w-full h-14 text-center cursor-pointer'}>
           Sign in
         </Link>
-        <Link href={""} className={styles.child + ' w-full h-14 text-center'}>
+        <Link href={"/signup"} className={styles.child + ' w-full h-14 text-center'}>
           Sign up
         </Link>
       </div> : null}

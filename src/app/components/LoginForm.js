@@ -1,10 +1,13 @@
 
 'use client'
 
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 import Login from '../actions/Login';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { UserContext } from '../userProvider/UserProvider';
+
 
 const Container = styled.div`
   display: flex;
@@ -54,33 +57,48 @@ const Button = styled.button`
   }
 `;
 const LoginForm = () => {
-    const [account, setAccount] = useState('');
-    const [password, setPassword] = useState('');
-    return (
-        <Container>
-            <Form action={Login}>
-                <Title>Login</Title>
-                <Input
-                    type="text"
-                    placeholder="Account"
-                    name='account'
-                    value={account}
-                    onChange={(e) => setAccount(e.target.value)}
-                    required
-                />
-                <Input
-                    type="password"
-                    placeholder="Password"
-                    name="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <Button type="submit">Log In</Button>
-                <Link href={"/signup"} style={{'textDecoration':'underline','margin-top':'8px'}} >Signup</Link>
-            </Form>
-        
-        </Container>
-    );
+  const router = useRouter()
+  const { SetUser } = useContext(UserContext)
+  const [form_data, setFormData] = useState({
+    account: '',
+    password: ''
+
+  })
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    const user = await Login(form_data)
+    if (user) {
+
+      SetUser(user)
+      router.push('/')
+    }
+
+  }
+  return (
+    <Container>
+      <Form onSubmit={handleSubmit} action='post'>
+        <Title>Login</Title>
+        <Input
+          type="text"
+          placeholder="Account"
+          name='account'
+          value={form_data.account}
+          onChange={(e) => setFormData(form_data => { return { ...form_data, account: e.target.value } })}
+          required
+        />
+        <Input
+          type="password"
+          placeholder="Password"
+          name="password"
+          value={form_data.password}
+          onChange={(e) => setFormData(form_data => { return { ...form_data, password: e.target.value } })}
+          required
+        />
+        <Button type="submit">Log In</Button>
+        <Link href={"/signup"} style={{ 'textDecoration': 'underline', 'margin-top': '8px' }} >Signup</Link>
+      </Form>
+
+    </Container>
+  );
 };
 export default LoginForm;

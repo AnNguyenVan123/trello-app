@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import styles from './ChangePassWordModal.module.css'
 import { useContext, useState } from 'react'
 import ChangePassword from '@/app/actions/changePassword'
-import { UserContext } from '@/app/provider/Provider'
+import { UserContext } from '@/app/userProvider/UserProvider'
 
 const ChangePasswordModal = ({ changeState, style }) => {
       const { user } = useContext(UserContext)

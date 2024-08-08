@@ -47,7 +47,7 @@ const Page = ({ params: { id } }) => {
         }
 
     }
-
+   console.log(50)
     return (
         <div className={clsx("mt-10", styles.container)} >
             <div className={clsx('font-semibold', 'text-4xl', 'mb-12', styles.title)}>{house?.title}</div>

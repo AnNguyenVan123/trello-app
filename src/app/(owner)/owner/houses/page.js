@@ -24,6 +24,7 @@ const Page = () => {
         if (id) {
             SetChosenHouseId(id)
         }
+        console.log(15)
 
     }
     console.log(modal_state)
